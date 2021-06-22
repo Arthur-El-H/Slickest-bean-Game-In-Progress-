@@ -5,7 +5,6 @@ using UnityEngine;
 public class mainManager : MonoBehaviour
 {
     public string lastScene;
-    int winsForOne = 0, WinsForTwo = 0;
     bool musicPlaying = true;
     AudioSource audio;
 
@@ -13,20 +12,28 @@ public class mainManager : MonoBehaviour
     public GameObject looseScene;
 
 
-    public void resetWins()
-    {
-        winsForOne = 0;
-        WinsForTwo = 0;
-    }
+    // Balancing statics
+    //public float doubleJumpWindowTime;  not implemented yet
 
-    public void win(bool p1)
-    {
-        if (p1) { winsForOne++; }
-        else    { WinsForTwo++; }
-    }
+    public float dashWallWindowTime = 1f;
+    public float landingWindowTime = .5f;
+    public float dashResetTime = 6f;
 
-    public int getWinsForOne() { return winsForOne; }
-    public int getWinsForTwo() { return WinsForTwo; }
+    public float dazeTime = 1.5f;
+    public int dashFrames = 180;
+
+    public float dashSpeed = 5f;
+    public float jumpPower = 250f;
+    public float doubleJumpPower = 250f;
+    public float wallJumpPower = 300f;
+    public float timedJumpPower = 450f;
+
+    public float dashEndPower = 50f;
+    public float reboundPower = 10f;
+
+    public float speed = 3f;
+
+    //
 
     private void Awake()
     {
@@ -39,6 +46,11 @@ public class mainManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("Startscreen");
         audio.loop = true;
         DontDestroyOnLoad(this);
+    }
+
+    public void replay()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("InGame");
     }
 
     public void toggleMusic()

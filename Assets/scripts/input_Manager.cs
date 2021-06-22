@@ -7,30 +7,61 @@ using UnityEngine;
 public class input_Manager : MonoBehaviour
 {
     public move_Manager moveManager;
+    public PlayerBean_Control control;
+    mainManager mainManager;
+
     bool jumpIsAble = true; 
     bool dashAble = true;
     bool secondJumpIsAble = true;
+    void activateSecondJump(bool newState) { secondJumpIsAble = newState; }
     internal bool isDashing;
 
     internal bool isLoadingDash;
     internal bool rightWall;
-    float dashResetTime = 6f;
+    bool isDazed;
+
+    internal void setIsDazed(bool dazed)
+    {
+        isDazed = dazed;
+    }
+
     //float waitTimeForSecondJump = .1f;
     public position currentPositionState = position.ground;
 
     bool doubleJumpWindow;
     bool dashWallWindow;
     bool landingWindow;
-    internal float doubleJumpWindowTime;
-    internal float dashWallWindowTime = 1f;
-    internal float landingWindowTime = .5f;
+
 
     bool faceRight;
 
 
+    // Balancing Statics! Beginning
+
+    public float dashWallWindowTime = 1f;
+    public float landingWindowTime = .5f;
+    public float doubleJumpWindowTime;
+
+    public float dashResetTime = 6f;
+
+    // End
+
+
+    private void Awake()
+    {
+        mainManager = GameObject.Find("mainManager").GetComponent<mainManager>();
+
+        dashWallWindowTime = mainManager.dashWallWindowTime;
+        landingWindowTime = mainManager.landingWindowTime;
+        dashResetTime = mainManager.dashResetTime;
+    }
+
     void Update()
     {
-        if (landingWindow)
+        //Debug.Log(currentPositionState);
+        if(isDazed) { return; }
+
+        if (landingWindow && !isDashing)
         {
             if (Input.GetKeyDown(KeyCode.W)) { timedJump(); }
         }
@@ -65,7 +96,6 @@ public class input_Manager : MonoBehaviour
     private void timedDashWallJump()
     {
         Debug.Log("Combo!");
-        moveManager.playerRB.velocity = Vector3.zero;
         moveManager.timedDashWallJump(rightWall);
     }
 
@@ -73,23 +103,26 @@ public class input_Manager : MonoBehaviour
     {
         Debug.Log("Combo!");
         moveManager.timedJump();
-        secondJumpIsAble = true;
+        activateSecondJump(true);
     }
 
-    IEnumerator reset(string timer, float timeToWait)
+    public IEnumerator reset(string timer, float timeToWait)
     {
         switch (timer)
         {
             case "jumpIsAble": jumpIsAble = false; break;
-            case "secondJumpIsAble": secondJumpIsAble = false; break;
+            case "secondJumpIsAble": activateSecondJump(false); break;
             case "dashAble": dashAble = false; break;
+            case "isDazed": isDazed = true; break;
         }
         yield return new WaitForSeconds(timeToWait);
         switch (timer)
         {
             case "jumpIsAble": jumpIsAble = true; break;
-            case "secondJumpIsAble": secondJumpIsAble = true; break;
+            case "secondJumpIsAble": activateSecondJump(true); break;
             case "dashAble": dashAble = true; break;
+            case "isDazed": isDazed = false; break;
+
         }
     }
     internal IEnumerator openWindow(string window, float openTime)
@@ -123,16 +156,16 @@ public class input_Manager : MonoBehaviour
         switch (currentPositionState)
         {
             case position.ground:
-                moveManager.jump(faceRight); secondJumpIsAble = false;
+                moveManager.jump(faceRight);
                 //StartCoroutine(reset("secondJumpIsAble", waitTimeForSecondJump));
                 break;
 
             case position.air: 
-                if (secondJumpIsAble) moveManager.doubleJump(); secondJumpIsAble = false;
+                if (secondJumpIsAble) moveManager.doubleJump(); activateSecondJump(false);
                 break;
 
             case position.wall:
-                moveManager.wallJump(rightWall); secondJumpIsAble = true;
+                moveManager.wallJump(rightWall); activateSecondJump(true);
                 break;
         }
     }
@@ -141,7 +174,7 @@ public class input_Manager : MonoBehaviour
     {
         currentPositionState = position.ground;
         jumpIsAble = true;
-        secondJumpIsAble = true;
+        activateSecondJump(true);
     }
 
 
@@ -153,18 +186,20 @@ public class input_Manager : MonoBehaviour
 
     private void onTheWall(bool right)
     {
+        Debug.Log("On the wall!");
         rightWall = right;
         currentPositionState = position.wall;
-        moveManager.playerRB.gravityScale = .2f;
+        if (isDashing)
+        {
+            control.Impact();
+        }
+        moveManager.playerRB.gravityScale = .05f;
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    public  void offTheWall()
     {
-        if (collision.gameObject.layer == 9 || collision.gameObject.layer == 10) { offTheWall(); }
-    }
-
-    private void offTheWall()
-    {
+        if (isDashing) { return; }
+        Debug.Log("off the wall");
         currentPositionState = position.air;
         moveManager.playerRB.gravityScale = 1f;
     }

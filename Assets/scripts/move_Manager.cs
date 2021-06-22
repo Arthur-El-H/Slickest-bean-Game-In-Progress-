@@ -7,13 +7,22 @@ public class move_Manager : MonoBehaviour
 {
     public input_Manager ipManager;
     public Rigidbody2D playerRB;
-    float speed = 3f;
-    float dashSpeed = 5f;
-    float jumpPower = 250f;
-    float doubleJumpPower = 250f;
-    float wallJumpPower = 300f;
-    float timedJumpPower = 450f;
-    int dashFrames = 180;
+    mainManager mainManager;
+
+
+    internal void stopDashing()
+    {
+        dashFrameCounter = dashFrames;
+        impacted = true;
+        Debug.Log("You Hit The Wall");
+    }
+
+    internal void dazed()
+    {
+        StartCoroutine(ipManager.reset("isDazed", dazeTime));
+    }
+
+
     int dashFrameCounter;
 
     Animator anim;
@@ -24,17 +33,49 @@ public class move_Manager : MonoBehaviour
     Vector2 dashL = new Vector2(-1f, 1f);
     Vector2 dashR = new Vector2(1f, 1f);
     Vector2 dashU = new Vector2(0, 1f);
-    float dashEndPower = 100f;
 
     Vector2 dir = Vector2.zero;
 
     Vector2 lastPos;
     Vector2 delta;
+
+    bool impacted;
+
+
+    // Balancing Statics! Beginning
+    float dazeTime = 1.5f;
+    int dashFrames = 180;
+
+    float dashSpeed = 5f;
+    float jumpPower = 250f;
+    float doubleJumpPower = 250f;
+    float wallJumpPower = 300f;
+    float timedJumpPower = 450f;
+
+    float dashEndPower = 50f;
+    float reboundPower = 10f;
+
+    float speed = 3f;
+    // End
     private void Awake()
     {
         Application.targetFrameRate = 60; 
         lastPos = transform.position;
         anim = GetComponent<Animator>();
+
+        mainManager = GameObject.Find("mainManager").GetComponent<mainManager>();
+        dazeTime = mainManager.dazeTime;
+        dashFrames = mainManager.dashFrames;
+        dashSpeed = mainManager.dashSpeed;
+        jumpPower = mainManager.jumpPower;
+        doubleJumpPower = mainManager.doubleJumpPower;
+        wallJumpPower = mainManager.wallJumpPower;
+        timedJumpPower = mainManager.timedJumpPower;
+        
+        dashEndPower = mainManager.dashEndPower;
+        reboundPower = mainManager.reboundPower;
+
+        speed = mainManager.speed;
     }
     private void FixedUpdate()
     {
@@ -129,6 +170,7 @@ public class move_Manager : MonoBehaviour
     {
         dashFrameCounter = 0;
         Debug.Log("Combo! Changed dir!");
+        //playerRB.velocity = Vector3.zero;
         if (rightWall) dir = dashL;
         else dir = dashR;
     }
@@ -146,6 +188,7 @@ public class move_Manager : MonoBehaviour
 
     IEnumerator dashing( string direction)
     {
+        Debug.Log("Start dashing");
         playerRB.gravityScale = 0;
         playerRB.velocity = Vector3.zero;
 
@@ -162,11 +205,28 @@ public class move_Manager : MonoBehaviour
             transform.position = Vector2.MoveTowards((Vector2)transform.position, target, dashSpeed * Time.deltaTime);            
             yield return new WaitForEndOfFrame();
         }
-        Debug.Log("dashing finished");
-        anim.Play("idle");
+
+        if(impacted)
+        {
+            impacted = false;
+            Debug.Log("ouch");
+            playerRB.AddForce( getReboundDir(ipManager.rightWall) * reboundPower);
+        }
+
+        else
+        {
+            Debug.Log("dashing finished");
+            playerRB.AddForce(dir * dashEndPower);
+        }
+        anim.Play("idle"); //comes in 'else' after implementation of daze animation
         ipManager.isDashing = false;
         playerRB.gravityScale = 1f;
-        playerRB.AddForce(dir * dashEndPower);
         dashFrameCounter = 0;
+    }
+
+    private Vector3 getReboundDir(bool rightWall)
+    {
+        if (rightWall) return rightWallJumpDir;
+        else return leftWallJumpDir;
     }
 }

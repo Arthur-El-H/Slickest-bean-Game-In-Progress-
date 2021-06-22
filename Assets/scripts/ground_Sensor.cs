@@ -10,9 +10,10 @@ public class ground_Sensor : MonoBehaviour
     {
         if (collision.gameObject.layer == 8) { inputManager.gotToGround(); }
     }
-    private void OnCollisionExit2D(Collision2D collision)
+
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 14) { inputManager.currentPositionState = position.air; }
+        if (collision.gameObject.layer == 15) { inputManager.currentPositionState = position.air; }
     }
 
 }

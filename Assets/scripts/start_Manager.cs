@@ -17,7 +17,6 @@ public class start_Manager : MonoBehaviour
     public void startMatch()
     {
         mainManager.lastScene = "Startscreen";
-        mainManager.resetWins();
         SceneManager.LoadScene("InGame");
     }
 
