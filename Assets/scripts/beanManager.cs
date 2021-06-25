@@ -8,6 +8,7 @@ public class beanManager : MonoBehaviour
     public GameObject bean;
     public GameObject newBean;
     float waitTime = 4f;
+    [SerializeField] input_Manager inputManager;
 
     // Start is called before the first frame update
     void Start()
@@ -29,11 +30,6 @@ public class beanManager : MonoBehaviour
     void Update()
     {
         
-    }
-
-    void getBean()
-    {
-
     }
 
     float currentY = 6f; //first bean
@@ -59,6 +55,7 @@ public class beanManager : MonoBehaviour
             size = UnityEngine.Random.Range(.3f, 1f);
             newBean = Instantiate(bean, new Vector3(currentX, currentY, 0), Quaternion.identity);
             newBean.transform.localScale = new Vector3(size, size, 1);
+            //newBean.GetComponent<playerSensorBeans>().ipManager = inputManager;
         }
 
         else

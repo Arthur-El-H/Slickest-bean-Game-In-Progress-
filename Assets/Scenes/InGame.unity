@@ -152,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bean: {fileID: 608570222}
   newBean: {fileID: 0}
+  inputManager: {fileID: 971724066}
 --- !u!4 &52256187
 Transform:
   m_ObjectHideFlags: 0
@@ -1137,6 +1138,7 @@ GameObject:
   - component: {fileID: 971724063}
   - component: {fileID: 971724070}
   - component: {fileID: 971724064}
+  - component: {fileID: 971724072}
   m_Layer: 12
   m_Name: player_bean
   m_TagString: Untagged
@@ -1205,6 +1207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveManager: {fileID: 971724065}
   control: {fileID: 971724071}
+  corrector: {fileID: 971724072}
   currentPositionState: 0
   dashWallWindowTime: 1
   landingWindowTime: 0.5
@@ -1323,6 +1326,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveManager: {fileID: 971724065}
+--- !u!114 &971724072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971724062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5925f6d5a270845a9ed624d88f52f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1098463627
 GameObject:
   m_ObjectHideFlags: 0
@@ -2640,6 +2655,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Standard Bohne
+      objectReference: {fileID: 0}
+    - target: {fileID: 1956240601329925080, guid: 05c95a15316e23546993c7dafc5ffa79,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315602887169977477, guid: 05c95a15316e23546993c7dafc5ffa79,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2523148685755445015, guid: 05c95a15316e23546993c7dafc5ffa79,
         type: 3}

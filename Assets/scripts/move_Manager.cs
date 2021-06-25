@@ -9,7 +9,6 @@ public class move_Manager : MonoBehaviour
     public Rigidbody2D playerRB;
     mainManager mainManager;
 
-
     internal void stopDashing()
     {
         dashFrameCounter = dashFrames;

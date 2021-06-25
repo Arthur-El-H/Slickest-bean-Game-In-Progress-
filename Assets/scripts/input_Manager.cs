@@ -9,11 +9,16 @@ public class input_Manager : MonoBehaviour
     public move_Manager moveManager;
     public PlayerBean_Control control;
     mainManager mainManager;
+    [SerializeField] CorrectorOfFallingWithBeans corrector;
 
     bool jumpIsAble = true; 
     bool dashAble = true;
     bool secondJumpIsAble = true;
-    void activateSecondJump(bool newState) { secondJumpIsAble = newState; }
+    void activateSecondJump(bool newState)
+    {
+        if(!newState) Debug.Log("I have been called!");
+        secondJumpIsAble = newState; 
+    }
     internal bool isDashing;
 
     internal bool isLoadingDash;
@@ -58,7 +63,7 @@ public class input_Manager : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log(currentPositionState);
+        if(currentPositionState == position.ground) { corrector.correct(); }
         if(isDazed) { return; }
 
         if (landingWindow && !isDashing)
@@ -153,6 +158,8 @@ public class input_Manager : MonoBehaviour
 
     void jump()
     {
+        Debug.Log("currentPosition ist gerade " + currentPositionState);
+        Debug.Log("secondJumpIsAble ist gerade " + secondJumpIsAble);
         switch (currentPositionState)
         {
             case position.ground:
@@ -160,8 +167,8 @@ public class input_Manager : MonoBehaviour
                 //StartCoroutine(reset("secondJumpIsAble", waitTimeForSecondJump));
                 break;
 
-            case position.air: 
-                if (secondJumpIsAble) moveManager.doubleJump(); activateSecondJump(false);
+            case position.air:
+                if (secondJumpIsAble) { moveManager.doubleJump(); activateSecondJump(false); }
                 break;
 
             case position.wall:

@@ -252,6 +252,19 @@ MonoBehaviour:
     type: 3}
   looseScene: {fileID: 7900606241954685508, guid: a0d371ed21fc5f44b94357e723a83172,
     type: 3}
+  dashWallWindowTime: 1
+  landingWindowTime: 0.5
+  dashResetTime: 6
+  dazeTime: 1.5
+  dashFrames: 180
+  dashSpeed: 5
+  jumpPower: 250
+  doubleJumpPower: 250
+  wallJumpPower: 300
+  timedJumpPower: 450
+  dashEndPower: 50
+  reboundPower: 10
+  speed: 3
 --- !u!4 &1680952515
 Transform:
   m_ObjectHideFlags: 0
