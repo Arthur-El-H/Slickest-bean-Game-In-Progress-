@@ -15,5 +15,4 @@ public class ground_Sensor : MonoBehaviour
     {
         if (collision.gameObject.layer == 15) { Debug.Log("exited trigger: In Air now"); inputManager.currentPositionState = position.air; }
     }
-
 }

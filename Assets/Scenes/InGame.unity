@@ -721,7 +721,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 11.5}
+  m_Size: {x: 2, y: 11.1}
   m_EdgeRadius: 0
 --- !u!114 &725002451
 MonoBehaviour:
@@ -1193,6 +1193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ipManager: {fileID: 971724066}
   playerRB: {fileID: 971724063}
+  onWall: 0
 --- !u!114 &971724066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1394,7 +1395,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 12.4}
+  m_Size: {x: 2, y: 11.3}
   m_EdgeRadius: 0
 --- !u!114 &1098463630
 MonoBehaviour:

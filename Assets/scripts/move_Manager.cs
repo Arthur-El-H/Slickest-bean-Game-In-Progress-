@@ -39,6 +39,7 @@ public class move_Manager : MonoBehaviour
     Vector2 delta;
 
     bool impacted;
+    public bool onWall;
 
 
     // Balancing Statics! Beginning
@@ -78,6 +79,11 @@ public class move_Manager : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        //correction
+        if (onWall && playerRB.velocity.y < -5f) { playerRB.velocity = new Vector2 (playerRB.velocity.x, -5f); }
+        playerRB.velocity = new Vector2(0, playerRB.velocity.y);
+
+
         delta = (Vector2) transform.position - lastPos;
         Camera.main.transform.position += new Vector3(0, delta.y, 0);
         lastPos = (Vector2)transform.position;

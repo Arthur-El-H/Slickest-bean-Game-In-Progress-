@@ -89,8 +89,8 @@ public class input_Manager : MonoBehaviour
 
         else
         {
-            if (Input.GetKey(KeyCode.A)) { moveManager.moveLeft(); faceRight = false; }
-            if (Input.GetKey(KeyCode.D)) { moveManager.moveRight(); faceRight = true; }
+            if (Input.GetKey(KeyCode.A) && (currentPositionState != position.wall ||  rightWall) ) { moveManager.moveLeft();  faceRight = false; }
+            if (Input.GetKey(KeyCode.D) && (currentPositionState != position.wall || !rightWall) ) { moveManager.moveRight(); faceRight = true; }
             if (Input.GetKeyDown(KeyCode.W)) { jump(); }
 
             if (Input.GetKey("space"))   { if (dashAble) { moveManager.loadDash(); isLoadingDash = true; } }
@@ -164,7 +164,6 @@ public class input_Manager : MonoBehaviour
         {
             case position.ground:
                 moveManager.jump(faceRight);
-                //StartCoroutine(reset("secondJumpIsAble", waitTimeForSecondJump));
                 break;
 
             case position.air:
@@ -200,14 +199,14 @@ public class input_Manager : MonoBehaviour
         {
             control.Impact();
         }
-        moveManager.playerRB.gravityScale = .05f;
+        moveManager.onWall = true;
     }
 
-    public  void offTheWall()
+    public void offTheWall()
     {
         if (isDashing) { return; }
         Debug.Log("off the wall");
         currentPositionState = position.air;
-        moveManager.playerRB.gravityScale = 1f;
+        moveManager.onWall = false;
     }
 }
