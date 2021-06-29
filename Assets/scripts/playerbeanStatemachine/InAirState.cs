@@ -7,8 +7,10 @@ public class InAirState : IState
     PlayerBean_Control owner;
     jumpManager jumpManager;
     move_Manager moveManager;
+    dashManager dashManager;
 
     bool doubleJumpAvailable = true;
+    public InAirState(PlayerBean_Control owner) { this.owner = owner; }
 
     public void Enter()
     {
@@ -48,7 +50,8 @@ public class InAirState : IState
     }
     public void SpaceHolded()
     {
-        // change to LoadDash state
+        dashManager.loadDash();
+        owner.statemachine.ChangeState(new LoadingDashState(owner));
     }
 
     public void SpaceUp()

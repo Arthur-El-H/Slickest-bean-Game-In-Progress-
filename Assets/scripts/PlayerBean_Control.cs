@@ -7,7 +7,7 @@ public class PlayerBean_Control : MonoBehaviour
 {
     public move_Manager moveManager;
 
-    private Statemachine statemachine = new Statemachine();
+    public Statemachine statemachine = new Statemachine();
     private void Start()
     {
         

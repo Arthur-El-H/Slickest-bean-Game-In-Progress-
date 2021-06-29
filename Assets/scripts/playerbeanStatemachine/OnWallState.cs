@@ -7,6 +7,7 @@ public class OnWallState : IState
     PlayerBean_Control owner;
     move_Manager moveManager;
     jumpManager jumpManager;
+    dashManager dashManager;
     public Rigidbody2D playerRB;
 
     bool leftWall;   //Fallspeed of the non player beans!
@@ -50,7 +51,8 @@ public class OnWallState : IState
 
     public void SpaceHolded()
     {
-        // change to LoadDash state
+        dashManager.loadDash();
+        owner.statemachine.ChangeState(new LoadingDashState(owner));
     }
 
     public void SpaceUp()

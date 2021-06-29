@@ -23,7 +23,7 @@ public class LoadingDashState : IState
     public void Execute()
     {
         dashManager.loadDash();
-        //could be possible to change that if execute is called AFTER ABtnPressed() or DBtnPressed()
+        //could be necesarry to change that if execute is called AFTER ABtnPressed() or DBtnPressed()
         toRight = false;
         toLeft = false;
     }
@@ -52,7 +52,18 @@ public class LoadingDashState : IState
 
     public void SpaceUp()
     {
-        dashManager.dash();
+        if (toLeft)
+        {
+            owner.statemachine.ChangeState(new DashingState(owner, dashDir.left));
+        }
+        else if (toRight)
+        {
+            owner.statemachine.ChangeState(new DashingState(owner, dashDir.right));
+        }
+        else 
+        {
+            owner.statemachine.ChangeState(new DashingState(owner, dashDir.up));
+        }
     }
 
 }

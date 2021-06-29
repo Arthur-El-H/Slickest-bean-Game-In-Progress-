@@ -7,6 +7,8 @@ public class OnBeanState : IState
     PlayerBean_Control owner;
     move_Manager moveManager;
     jumpManager jumpManager;
+    dashManager dashManager;
+
     float fallSpeed = 1f;   //Fallspeed of the non player beans!
 
     public OnBeanState(PlayerBean_Control owner) { this.owner = owner; }
@@ -48,7 +50,8 @@ public class OnBeanState : IState
 
     public void SpaceHolded()
     {
-        // change to LoadDash state
+        dashManager.loadDash();
+        owner.statemachine.ChangeState(new LoadingDashState(owner));
     }
 
     public void SpaceUp()

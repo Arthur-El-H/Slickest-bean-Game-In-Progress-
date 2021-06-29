@@ -13,4 +13,4 @@
 
     }
 
-public enum direction { up, down, left, right, ul, ur, dl, dr}
+public enum dashDir { up, left, right}
