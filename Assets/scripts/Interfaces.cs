@@ -9,7 +9,7 @@
     void SpaceUp();
     void ABtnPressed();
     void DBtnPressed();
-    void wBtnPressed();
+    void WBtnPressed();
 
     }
 

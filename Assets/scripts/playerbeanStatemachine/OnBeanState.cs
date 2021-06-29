@@ -11,10 +11,17 @@ public class OnBeanState : IState
 
     float fallSpeed = 1f;   //Fallspeed of the non player beans!
 
-    public OnBeanState(PlayerBean_Control owner) { this.owner = owner; }
+    public OnBeanState(PlayerBean_Control owner)
+    {
+        this.owner = owner;
+        this.moveManager = owner.moveManager;
+        this.jumpManager = owner.jumpManager;
+        this.dashManager = owner.dashManager;
+    }
 
     public void Enter()
     {
+        Debug.Log("Entering ONBEAN State");
     }
 
     public void Execute()
@@ -36,7 +43,7 @@ public class OnBeanState : IState
         moveManager.moveRight();
     }
 
-    public void wBtnPressed()
+    public void WBtnPressed()
     {
         // If timing is decided by timer, start timer for doublejump here!
 

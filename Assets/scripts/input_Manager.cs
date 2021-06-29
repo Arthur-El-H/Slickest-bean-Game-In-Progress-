@@ -63,7 +63,14 @@ public class input_Manager : MonoBehaviour
 
     void Update()
     {
-        if(currentPositionState == position.ground) { corrector.correct(); }
+        if (Input.GetKeyDown(KeyCode.W)) { control.statemachine.getCurrentState()?.WBtnPressed(); }
+        if (Input.GetKey("space"))       { control.statemachine.getCurrentState()?.SpaceHolded(); }
+        if (Input.GetKeyUp("space"))     { control.statemachine.getCurrentState()?.SpaceUp(); }
+        if (Input.GetKey(KeyCode.A))     { control.statemachine.getCurrentState()?.ABtnPressed(); }
+        if (Input.GetKey(KeyCode.D))     { control.statemachine.getCurrentState()?.DBtnPressed(); }
+
+        /*
+        if (currentPositionState == position.ground) { corrector.correct(); }
         if(isDazed) { return; }
 
         if (landingWindow && !isDashing)
@@ -96,8 +103,9 @@ public class input_Manager : MonoBehaviour
             if (Input.GetKey("space"))   { if (dashAble) { moveManager.loadDash(); isLoadingDash = true; } }
             if (Input.GetKeyUp("space")) { if (dashAble) { dash(); isLoadingDash = false; } }
         }
+        */
     }
-
+    /*
     private void timedDashWallJump()
     {
         Debug.Log("Combo!");
@@ -110,7 +118,7 @@ public class input_Manager : MonoBehaviour
         moveManager.timedJump();
         activateSecondJump(true);
     }
-
+    */
     public IEnumerator reset(string timer, float timeToWait)
     {
         switch (timer)
@@ -179,8 +187,15 @@ public class input_Manager : MonoBehaviour
     public void gotToGround()
     {
         currentPositionState = position.ground;
+        control.statemachine.ChangeState(new OnBeanState(control));
         jumpIsAble = true;
         activateSecondJump(true);
+    }
+
+    public void GoIntoAir()
+    {
+        currentPositionState = position.air;
+        control.statemachine.ChangeState(new InAirState(control));
     }
 
 

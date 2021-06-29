@@ -8,14 +8,23 @@ public class OnWallState : IState
     move_Manager moveManager;
     jumpManager jumpManager;
     dashManager dashManager;
-    public Rigidbody2D playerRB;
+    Rigidbody2D playerRB;
 
-    bool leftWall;   //Fallspeed of the non player beans!
+    bool leftWall;   
 
-    public OnWallState(PlayerBean_Control owner) { this.owner = owner; }
+    public OnWallState(PlayerBean_Control owner, move_Manager moveManager, jumpManager jumpManager, dashManager dashManager, Rigidbody2D playerRB, bool leftWall) 
+    { 
+        this.owner = owner;
+        this.moveManager = moveManager;
+        this.jumpManager = jumpManager;
+        this.dashManager = dashManager;
+        this.playerRB = playerRB;
+        this.leftWall = leftWall;
+    }
 
     public void Enter()
     {
+        Debug.Log("Entering OnWall State");
     }
 
     public void Execute()
@@ -38,7 +47,7 @@ public class OnWallState : IState
         if(leftWall) moveManager.moveRight();
     }
 
-    public void wBtnPressed()
+    public void WBtnPressed()
     {
         // Ask Timing manager if timing is right
 

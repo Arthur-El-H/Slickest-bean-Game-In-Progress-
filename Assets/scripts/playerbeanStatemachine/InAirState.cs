@@ -10,21 +10,24 @@ public class InAirState : IState
     dashManager dashManager;
 
     bool doubleJumpAvailable = true;
-    public InAirState(PlayerBean_Control owner) { this.owner = owner; }
-
+    public InAirState(PlayerBean_Control owner)
+    {
+        this.owner = owner;
+        this.moveManager = owner.moveManager;
+        this.jumpManager = owner.jumpManager;
+        this.dashManager = owner.dashManager;
+    }
     public void Enter()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Entering InAir State");
     }
 
     public void Execute()
     {
-        throw new System.NotImplementedException();
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
     }
 
     public void ABtnPressed()
@@ -37,7 +40,7 @@ public class InAirState : IState
         moveManager.moveRight();
     }
 
-    public void wBtnPressed()
+    public void WBtnPressed()
     {
         // ask TimingManager if timing is right
         if (!doubleJumpAvailable) { return; }
@@ -47,6 +50,8 @@ public class InAirState : IState
 
         // if no:
         jumpManager.doubleJump();
+
+        doubleJumpAvailable = false;
     }
     public void SpaceHolded()
     {
@@ -56,6 +61,6 @@ public class InAirState : IState
 
     public void SpaceUp()
     {
-        // Dash through dash Manager
+        owner.statemachine.ChangeState(new LoadingDashState(owner));
     }
 }

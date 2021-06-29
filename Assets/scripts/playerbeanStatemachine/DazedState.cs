@@ -5,11 +5,6 @@ using UnityEngine;
 public class DazedState : IState
 {
     PlayerBean_Control owner;
-    move_Manager moveManager;
-    jumpManager jumpManager;
-    dashManager dashManager;
-    Animator anim;
-    Rigidbody2D playerRB;
 
     int dazeFrames = 60;
     int dazeFrameCount;
@@ -21,6 +16,7 @@ public class DazedState : IState
 
     public void Enter()
     {
+        Debug.Log("Entering Dazed State");
     }
 
     public void Execute()
@@ -46,7 +42,7 @@ public class DazedState : IState
     {
     }
 
-    public void wBtnPressed()
+    public void WBtnPressed()
     {
     }
 

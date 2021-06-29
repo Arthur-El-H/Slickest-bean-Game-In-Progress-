@@ -21,14 +21,20 @@ public class DashingState : IState
     int dashFrames = 180;
     int dashFrameCount;
 
-    public DashingState(PlayerBean_Control owner, dashDir dir) 
+    public DashingState(PlayerBean_Control owner, dashDir dir)
     {
         this.owner = owner;
+        this.moveManager = owner.moveManager;
+        this.jumpManager = owner.jumpManager;
+        this.dashManager = owner.dashManager;
+        this.playerRB = owner.playerRB;
         this.dir = dir;
     }
 
     public void Enter()
     {
+        Debug.Log("Entering Dashing State");
+
         playerRB.gravityScale = 0;
         playerRB.velocity = Vector3.zero;
 
@@ -51,7 +57,7 @@ public class DashingState : IState
     public void Execute()
     {
         //check for bounceOff in playerBeanControl
-
+        Debug.Log("Just dash already");
         dashManager.Dash(currentDirValue);
         dashFrameCount++;
         if(dashFrameCount >= dashFrames)
@@ -77,7 +83,7 @@ public class DashingState : IState
         currentDirValue = dashR;
     }
 
-    public void wBtnPressed()
+    public void WBtnPressed()
     {
         dir = dashDir.up;
         currentDirValue = dashU;
@@ -89,6 +95,8 @@ public class DashingState : IState
 
     public void SpaceUp()
     {
+        Debug.Log("Space up is called in dash state");
+
         //get timingbool - get current position: Is a bean broken? Bounced of a wall?
 
         //bean broken:

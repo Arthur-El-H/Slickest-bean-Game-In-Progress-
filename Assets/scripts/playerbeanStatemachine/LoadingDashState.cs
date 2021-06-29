@@ -5,19 +5,22 @@ using UnityEngine;
 public class LoadingDashState : IState
 {
     PlayerBean_Control owner;
-    move_Manager moveManager;
-    jumpManager jumpManager;
     dashManager dashManager;
     Animator anim;
-    public Rigidbody2D playerRB;
 
     bool toLeft;
     bool toRight;
 
-    public LoadingDashState(PlayerBean_Control owner) { this.owner = owner; }
+    public LoadingDashState(PlayerBean_Control owner) 
+    { 
+        this.owner = owner;
+        this.dashManager = owner.dashManager;
+        anim = owner.animator;
+    }
 
     public void Enter()
     {
+        Debug.Log("Entering loading Dash State");
     }
 
     public void Execute()
@@ -42,7 +45,7 @@ public class LoadingDashState : IState
         toLeft = false;
     }
 
-    public void wBtnPressed()
+    public void WBtnPressed()
     {
     }
 
@@ -52,6 +55,7 @@ public class LoadingDashState : IState
 
     public void SpaceUp()
     {
+        Debug.Log("Space up is called in loadingdash state");
         if (toLeft)
         {
             owner.statemachine.ChangeState(new DashingState(owner, dashDir.left));
