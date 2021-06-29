@@ -35,9 +35,6 @@ public class move_Manager : MonoBehaviour
 
     Vector2 dir = Vector2.zero;
 
-    Vector2 lastPos;
-    Vector2 delta;
-
     bool impacted;
     public bool onWall;
 
@@ -60,7 +57,6 @@ public class move_Manager : MonoBehaviour
     private void Awake()
     {
         Application.targetFrameRate = 60; 
-        lastPos = transform.position;
         anim = GetComponent<Animator>();
 
         mainManager = GameObject.Find("mainManager").GetComponent<mainManager>();
@@ -82,12 +78,6 @@ public class move_Manager : MonoBehaviour
         //correction
         if (onWall && playerRB.velocity.y < -5f) { playerRB.velocity = new Vector2 (playerRB.velocity.x, -5f); }
         playerRB.velocity = new Vector2(0, playerRB.velocity.y);
-
-
-        //Extra script for camera!
-        delta = (Vector2) transform.position - lastPos;
-        Camera.main.transform.position += new Vector3(0, delta.y, 0);
-        lastPos = (Vector2)transform.position;
     }
 
     public void jump()

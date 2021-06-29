@@ -37,6 +37,12 @@ public class OnBeanState : IState
     public void wBtnPressed()
     {
         // If timing is decided by timer, start timer for doublejump here!
+
+        // Ask timingManager if timing is right. This timer is started by sensor of npc bean!
+        //yes:
+        jumpManager.timedJump();
+
+        //no:
         jumpManager.jump();
     }
 
