@@ -84,12 +84,13 @@ public class move_Manager : MonoBehaviour
         playerRB.velocity = new Vector2(0, playerRB.velocity.y);
 
 
+        //Extra script for camera!
         delta = (Vector2) transform.position - lastPos;
         Camera.main.transform.position += new Vector3(0, delta.y, 0);
         lastPos = (Vector2)transform.position;
     }
 
-    public void jump(bool right)
+    public void jump()
     {
         playerRB.velocity = Vector3.zero;
         playerRB.AddForce(Vector3.up * jumpPower);

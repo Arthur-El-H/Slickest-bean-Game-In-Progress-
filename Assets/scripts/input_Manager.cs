@@ -163,7 +163,7 @@ public class input_Manager : MonoBehaviour
         switch (currentPositionState)
         {
             case position.ground:
-                moveManager.jump(faceRight);
+                moveManager.jump();
                 break;
 
             case position.air:
