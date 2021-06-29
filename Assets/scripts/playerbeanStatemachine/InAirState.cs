@@ -2,26 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnBeanState : IState
+public class InAirState : IState
 {
     PlayerBean_Control owner;
-    move_Manager moveManager;
     jumpManager jumpManager;
-    float fallSpeed = 1f;   //Fallspeed of the non player beans!
+    move_Manager moveManager;
 
-    public OnBeanState(PlayerBean_Control owner) { this.owner = owner; }
+    bool doubleJumpAvailable = true;
 
     public void Enter()
     {
+        throw new System.NotImplementedException();
     }
 
     public void Execute()
     {
-        owner.transform.position = Vector2.MoveTowards((Vector2)owner.transform.position, (Vector2)owner.transform.position + Vector2.down, fallSpeed * Time.deltaTime);
+        throw new System.NotImplementedException();
     }
 
     public void Exit()
     {
+        throw new System.NotImplementedException();
     }
 
     public void ABtnPressed()
@@ -36,10 +37,15 @@ public class OnBeanState : IState
 
     public void wBtnPressed()
     {
-        // If timing is decided by timer, start timer for doublejump here!
-        jumpManager.jump();
-    }
+        // ask TimingManager if timing is right
+        if (!doubleJumpAvailable) { return; }
 
+        // if yes:
+        jumpManager.timedDoubleJump();
+
+        // if no:
+        jumpManager.doubleJump();
+    }
     public void SpaceHolded()
     {
         // change to LoadDash state

@@ -79,7 +79,9 @@
     <Compile Include="Assets\scripts\options_Manager.cs" />
     <Compile Include="Assets\scripts\playerAnimator.cs" />
     <Compile Include="Assets\scripts\playerSensorBeans.cs" />
+    <Compile Include="Assets\scripts\playerbeanStatemachine\InAirState.cs" />
     <Compile Include="Assets\scripts\playerbeanStatemachine\OnBeanState.cs" />
+    <Compile Include="Assets\scripts\playerbeanStatemachine\OnWallState.cs" />
     <Compile Include="Assets\scripts\playerbeanStatemachine\Statemachine.cs" />
     <Compile Include="Assets\scripts\rulesManager.cs" />
     <Compile Include="Assets\scripts\start_Manager.cs" />

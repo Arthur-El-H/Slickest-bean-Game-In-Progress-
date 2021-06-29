@@ -8,7 +8,9 @@ public class jumpManager : MonoBehaviour
 
     float jumpPower = 250f;
     float doubleJumpPower = 250f;
+    float timedDoubleJumpPower = 350f;
     float wallJumpPower = 300f;
+    float timedWallJumpPower = 400f;
     float timedJumpPower = 450f;
 
     Vector3 rightWallJumpDir = new Vector3(-1f, 1f, 0);
@@ -24,6 +26,11 @@ public class jumpManager : MonoBehaviour
         playerRB.velocity = Vector3.zero;
         playerRB.AddForce(Vector3.up * doubleJumpPower);
     }
+    public void timedDoubleJump()
+    {
+        playerRB.velocity = Vector3.zero;
+        playerRB.AddForce(Vector3.up * timedDoubleJumpPower);
+    }
 
     internal void timedJump()
     {
@@ -36,6 +43,13 @@ public class jumpManager : MonoBehaviour
         playerRB.velocity = Vector3.zero;
         if (right) { playerRB.AddForce(rightWallJumpDir * wallJumpPower); }
         else { playerRB.AddForce(leftWallJumpDir * wallJumpPower); }
+    }
+
+    public void timedWallJump(bool right)
+    {
+        playerRB.velocity = Vector3.zero;
+        if (right) { playerRB.AddForce(rightWallJumpDir * timedWallJumpPower); }
+        else { playerRB.AddForce(leftWallJumpDir * timedWallJumpPower); }
     }
 
 }
