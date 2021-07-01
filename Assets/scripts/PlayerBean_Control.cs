@@ -18,6 +18,11 @@ public class PlayerBean_Control : MonoBehaviour
         statemachine = new Statemachine();
         statemachine.ChangeState(new OnBeanState(this));
     }
+
+    private void Update()
+    {
+        statemachine.Update();
+    }
     public void Impact()
     {
         moveManager.stopDashing();
