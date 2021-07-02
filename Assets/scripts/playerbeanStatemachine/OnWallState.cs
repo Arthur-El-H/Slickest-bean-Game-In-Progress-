@@ -12,13 +12,13 @@ public class OnWallState : IState
 
     bool leftWall;   
 
-    public OnWallState(PlayerBean_Control owner, move_Manager moveManager, jumpManager jumpManager, dashManager dashManager, Rigidbody2D playerRB, bool leftWall) 
+    public OnWallState(PlayerBean_Control owner, bool leftWall) 
     { 
         this.owner = owner;
-        this.moveManager = moveManager;
-        this.jumpManager = jumpManager;
-        this.dashManager = dashManager;
-        this.playerRB = playerRB;
+        this.moveManager = owner.moveManager;
+        this.jumpManager = owner.jumpManager;
+        this.dashManager = owner.dashManager;
+        this.playerRB = owner.playerRB;
         this.leftWall = leftWall;
     }
 

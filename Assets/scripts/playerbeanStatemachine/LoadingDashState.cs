@@ -6,6 +6,7 @@ public class LoadingDashState : IState
 {
     PlayerBean_Control owner;
     dashManager dashManager;
+    private ComboManager comboManager;
     Animator anim;
 
     bool toLeft;
@@ -15,6 +16,7 @@ public class LoadingDashState : IState
     { 
         this.owner = owner;
         this.dashManager = owner.dashManager;
+        this.comboManager = owner.comboManager;
         anim = owner.animator;
     }
 

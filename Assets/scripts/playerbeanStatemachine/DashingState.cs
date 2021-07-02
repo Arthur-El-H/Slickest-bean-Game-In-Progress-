@@ -10,6 +10,7 @@ public class DashingState : IState
     dashManager dashManager;
     Animator anim;
     Rigidbody2D playerRB;
+    ComboManager comboManager;
 
     private Vector2 currentDirValue;
     private static Vector2 dashL = new Vector2(-1f, 1f);
@@ -28,6 +29,7 @@ public class DashingState : IState
         this.jumpManager = owner.jumpManager;
         this.dashManager = owner.dashManager;
         this.playerRB = owner.playerRB;
+        this.comboManager = owner.comboManager;
         this.dir = dir;
     }
 
@@ -57,7 +59,6 @@ public class DashingState : IState
     public void Execute()
     {
         //check for bounceOff in playerBeanControl
-        Debug.Log("Just dash already");
         dashManager.Dash(currentDirValue);
         dashFrameCount++;
         if(dashFrameCount >= dashFrames)

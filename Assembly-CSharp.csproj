@@ -69,6 +69,7 @@
     <Compile Include="Assets\jumpManager.cs" />
     <Compile Include="Assets\scripts\Bean.cs" />
     <Compile Include="Assets\scripts\CorrectorOfFallingWithBeans.cs" />
+    <Compile Include="Assets\scripts\HighscoreManager.cs" />
     <Compile Include="Assets\scripts\Interfaces.cs" />
     <Compile Include="Assets\scripts\PlayerBean_Control.cs" />
     <Compile Include="Assets\scripts\beanManager.cs" />

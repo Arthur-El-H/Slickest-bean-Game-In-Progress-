@@ -8,6 +8,8 @@ public class InAirState : IState
     jumpManager jumpManager;
     move_Manager moveManager;
     dashManager dashManager;
+    ComboManager comboManager;
+    Rigidbody2D playerRB;
 
     bool doubleJumpAvailable = true;
     public InAirState(PlayerBean_Control owner)
@@ -16,6 +18,8 @@ public class InAirState : IState
         this.moveManager = owner.moveManager;
         this.jumpManager = owner.jumpManager;
         this.dashManager = owner.dashManager;
+        this.comboManager = owner.comboManager;
+        this.playerRB = owner.playerRB;
     }
     public void Enter()
     {
@@ -45,12 +49,14 @@ public class InAirState : IState
         // ask TimingManager if timing is right
         if (!doubleJumpAvailable) { return; }
 
-        // if yes:
-        jumpManager.timedDoubleJump();
-
-        // if no:
-        jumpManager.doubleJump();
-
+        if (comboManager.timingWindowForDoubleJumpOpen)
+        {
+            jumpManager.timedDoubleJump();
+        }
+        else
+        {
+            jumpManager.doubleJump();
+        }
         doubleJumpAvailable = false;
     }
     public void SpaceHolded()

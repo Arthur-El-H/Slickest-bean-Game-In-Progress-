@@ -8,6 +8,7 @@ public class input_Manager : MonoBehaviour
 {
     public move_Manager moveManager;
     public PlayerBean_Control control;
+    [SerializeField] ComboManager comboManager;
     mainManager mainManager;
     [SerializeField] CorrectorOfFallingWithBeans corrector;
 
@@ -119,6 +120,7 @@ public class input_Manager : MonoBehaviour
         activateSecondJump(true);
     }
     */
+
     public IEnumerator reset(string timer, float timeToWait)
     {
         switch (timer)
@@ -138,6 +140,7 @@ public class input_Manager : MonoBehaviour
 
         }
     }
+
     internal IEnumerator openWindow(string window, float openTime)
     {
         Debug.Log("Open " + window);
@@ -156,48 +159,33 @@ public class input_Manager : MonoBehaviour
         }
     }
 
-    void dash()
-    {
-        if (Input.GetKey(KeyCode.D)) { Debug.Log("dash right"); moveManager.dash("right"); }
-        else if (Input.GetKey(KeyCode.A)) { moveManager.dash("left"); }
-        else { moveManager.dash("up"); }
-        StartCoroutine(reset("dashAble", dashResetTime));
-    }
+    //void dash()
+    //{
+    //    if (Input.GetKey(KeyCode.D)) { Debug.Log("dash right"); moveManager.dash("right"); }
+    //    else if (Input.GetKey(KeyCode.A)) { moveManager.dash("left"); }
+    //    else { moveManager.dash("up"); }
+    //    StartCoroutine(reset("dashAble", dashResetTime));
+    //}
 
-    void jump()
-    {
-        Debug.Log("currentPosition ist gerade " + currentPositionState);
-        Debug.Log("secondJumpIsAble ist gerade " + secondJumpIsAble);
-        switch (currentPositionState)
-        {
-            case position.ground:
-                moveManager.jump();
-                break;
+    //void jump()
+    //{
+    //    Debug.Log("currentPosition ist gerade " + currentPositionState);
+    //    Debug.Log("secondJumpIsAble ist gerade " + secondJumpIsAble);
+    //    switch (currentPositionState)
+    //    {
+    //        case position.ground:
+    //            moveManager.jump();
+    //            break;
 
-            case position.air:
-                if (secondJumpIsAble) { moveManager.doubleJump(); activateSecondJump(false); }
-                break;
+    //        case position.air:
+    //            if (secondJumpIsAble) { moveManager.doubleJump(); activateSecondJump(false); }
+    //            break;
 
-            case position.wall:
-                moveManager.wallJump(rightWall); activateSecondJump(true);
-                break;
-        }
-    }
-
-    public void gotToGround()
-    {
-        currentPositionState = position.ground;
-        control.statemachine.ChangeState(new OnBeanState(control));
-        jumpIsAble = true;
-        activateSecondJump(true);
-    }
-
-    public void GoIntoAir()
-    {
-        currentPositionState = position.air;
-        control.statemachine.ChangeState(new InAirState(control));
-    }
-
+    //        case position.wall:
+    //            moveManager.wallJump(rightWall); activateSecondJump(true);
+    //            break;
+    //    }
+    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -208,20 +196,23 @@ public class input_Manager : MonoBehaviour
     private void onTheWall(bool right)
     {
         Debug.Log("On the wall!");
-        rightWall = right;
-        currentPositionState = position.wall;
-        if (isDashing)
-        {
-            control.Impact();
-        }
-        moveManager.onWall = true;
+        control.statemachine.ChangeState(new OnWallState(control, !right));
+        comboManager.OpenWallJump(.3f);
     }
 
     public void offTheWall()
     {
-        if (isDashing) { return; }
-        Debug.Log("off the wall");
-        currentPositionState = position.air;
-        moveManager.onWall = false;
+        control.statemachine.ChangeState(new InAirState(control));
+    }
+
+    public void GoIntoAir()
+    {
+        control.statemachine.ChangeState(new InAirState(control));
+    }
+
+    public void gotToGround()
+    {
+        control.statemachine.ChangeState(new OnBeanState(control));
+        comboManager.OpenBeanJump(.1f);
     }
 }

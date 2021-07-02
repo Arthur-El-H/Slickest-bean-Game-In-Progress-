@@ -10,6 +10,7 @@ public class PlayerBean_Control : MonoBehaviour
     public jumpManager jumpManager;
     public Animator animator;
     public Rigidbody2D playerRB;
+    public ComboManager comboManager;
 
     public Statemachine statemachine;
 

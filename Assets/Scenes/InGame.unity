@@ -1211,6 +1211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveManager: {fileID: 971724065}
   control: {fileID: 971724071}
+  comboManager: {fileID: 1158010693}
   corrector: {fileID: 971724072}
   currentPositionState: 0
   dashWallWindowTime: 1
@@ -1334,6 +1335,7 @@ MonoBehaviour:
   jumpManager: {fileID: 971724074}
   animator: {fileID: 971724070}
   playerRB: {fileID: 971724063}
+  comboManager: {fileID: 1158010693}
   statemachine: {fileID: 0}
 --- !u!114 &971724072
 MonoBehaviour:
@@ -1494,6 +1496,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76537fd8e99eff442945d13e86f3cf6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timingWindowForBreakingBeanOpen: 0
+  timingWindowForBouncingOfWallOpen: 0
+  timingWindowForWallJumpOpen: 0
+  timingWindowForDoubleJumpOpen: 0
+  timingWindowForBeanJumpOpen: 0
 --- !u!4 &1158010694
 Transform:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class OnBeanState : IState
     move_Manager moveManager;
     jumpManager jumpManager;
     dashManager dashManager;
+    ComboManager comboManager;
 
     float fallSpeed = 1f;   //Fallspeed of the non player beans!
 
@@ -17,6 +18,7 @@ public class OnBeanState : IState
         this.moveManager = owner.moveManager;
         this.jumpManager = owner.jumpManager;
         this.dashManager = owner.dashManager;
+        this.comboManager = owner.comboManager;
     }
 
     public void Enter()
@@ -45,14 +47,16 @@ public class OnBeanState : IState
 
     public void WBtnPressed()
     {
-        // If timing is decided by timer, start timer for doublejump here!
-
-        // Ask timingManager if timing is right. This timer is started by sensor of npc bean!
-        //yes:
-        jumpManager.timedJump();
-
-        //no:
-        jumpManager.jump();
+        if(comboManager.timingWindowForBeanJumpOpen)
+        {
+            comboManager.OpenDoubleJump(.5f);
+            jumpManager.timedJump();
+        }
+        else
+        {
+            comboManager.OpenDoubleJump(.25f);
+            jumpManager.jump();
+        }
     }
 
     public void SpaceHolded()
