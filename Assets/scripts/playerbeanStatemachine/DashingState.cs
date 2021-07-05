@@ -97,17 +97,25 @@ public class DashingState : IState
     public void SpaceUp()
     {
         Debug.Log("Space up is called in dash state");
-
+        Debug.Log(comboManager.timingWindowForBreakingBeanOpen);
         //get timingbool - get current position: Is a bean broken? Bounced of a wall?
 
-        //bean broken:
-        dashFrameCount = dashFrameCount - 60;
+        if(comboManager.timingWindowForBreakingBeanOpen)
+        {
+            dashFrameCount = dashFrameCount - 60;
+            owner.beanManager.BreakBean();
+            delayCount = 0;
+        }
 
-        //bounced of a wall
-        ReverseDirection();
+        else if (comboManager.timingWindowForBouncingOfWallOpen)
+        {
+            ReverseDirection();
+        }
 
-        // neiher
-        owner.statemachine.ChangeState(new InAirState(owner));
+        else
+        {
+            owner.statemachine.ChangeState(new InAirState(owner));
+        }
     }
 
     private void ReverseDirection()
@@ -127,6 +135,38 @@ public class DashingState : IState
             case dashDir.up:
                 // could check at which wall the player is and push to the other direction
                 break;
+        }
+    }
+
+    public void OnTheGround()
+    {
+        owner.statemachine.ChangeState(new DazedState(owner));
+    }
+
+    public void OffTheGround()
+    {
+    }
+
+    public void OnTheWall(bool right)
+    {
+        owner.statemachine.ChangeState(new DazedState(owner));
+    }
+
+    public void OffTheWall()
+    {
+    }
+
+    int delayCount;
+    int delay = 20;
+
+    public void CrashIntoBean()
+    {
+        delayCount++;
+
+        if(delayCount > delay)
+        {
+            comboManager.timingWindowForBreakingBeanOpen = false;
+            owner.statemachine.ChangeState(new DazedState(owner));
         }
     }
 }

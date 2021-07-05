@@ -11,6 +11,7 @@ public class PlayerBean_Control : MonoBehaviour
     public Animator animator;
     public Rigidbody2D playerRB;
     public ComboManager comboManager;
+    public beanManager beanManager;
 
     public Statemachine statemachine;
 
@@ -23,10 +24,5 @@ public class PlayerBean_Control : MonoBehaviour
     private void Update()
     {
         statemachine.Update();
-    }
-    public void Impact()
-    {
-        moveManager.stopDashing();
-        moveManager.dazed();
     }
 }

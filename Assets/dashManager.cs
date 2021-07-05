@@ -22,7 +22,6 @@ public class dashManager : MonoBehaviour
 
     public void Dash(Vector2 dir)
     {
-        Debug.Log("Yeah im dashing");
         Vector2 target = (Vector2)transform.position + dir;
         transform.position = Vector2.MoveTowards((Vector2)transform.position, target, dashSpeed * Time.deltaTime);
     }

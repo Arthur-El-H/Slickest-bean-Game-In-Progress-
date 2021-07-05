@@ -9,6 +9,7 @@ public class OnWallState : IState
     jumpManager jumpManager;
     dashManager dashManager;
     Rigidbody2D playerRB;
+    ComboManager comboManager;
 
     bool leftWall;   
 
@@ -20,6 +21,7 @@ public class OnWallState : IState
         this.dashManager = owner.dashManager;
         this.playerRB = owner.playerRB;
         this.leftWall = leftWall;
+        this.comboManager = owner.comboManager;
     }
 
     public void Enter()
@@ -49,13 +51,10 @@ public class OnWallState : IState
 
     public void WBtnPressed()
     {
-        // Ask Timing manager if timing is right
-
-        //yes:
-        jumpManager.wallJump(!leftWall);
-
-        //no:
-        jumpManager.timedWallJump(!leftWall);
+        if(comboManager.timingWindowForWallJumpOpen)
+            jumpManager.wallJump(!leftWall);
+        else
+            jumpManager.timedWallJump(!leftWall);
     }
 
     public void SpaceHolded()
@@ -67,5 +66,26 @@ public class OnWallState : IState
     public void SpaceUp()
     {
         // Dash through dash Manager
+    }
+
+    public void OnTheWall(bool right)
+    {
+    }
+
+    public void OffTheWall()
+    {
+        owner.statemachine.ChangeState(new InAirState(owner));
+    }
+
+    public void OnTheGround()
+    {
+    }
+
+    public void OffTheGround()
+    {
+    }
+
+    public void CrashIntoBean()
+    {
     }
 }

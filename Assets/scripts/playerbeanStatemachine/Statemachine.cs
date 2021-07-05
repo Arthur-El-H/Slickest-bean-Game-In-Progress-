@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Statemachine : MonoBehaviour
+public class Statemachine 
 {
     IState currentState;
     public IState getCurrentState() { return currentState; }

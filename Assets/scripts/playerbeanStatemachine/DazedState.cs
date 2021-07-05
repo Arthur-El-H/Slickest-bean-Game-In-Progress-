@@ -53,4 +53,24 @@ public class DazedState : IState
     public void SpaceUp()
     {
     }
+
+    public void OnTheGround()
+    {
+    }
+
+    public void OffTheGround()
+    {
+    }
+
+    public void OnTheWall(bool right)
+    {
+    }
+
+    public void OffTheWall()
+    {
+    }
+
+    public void CrashIntoBean()
+    {
+    }
 }

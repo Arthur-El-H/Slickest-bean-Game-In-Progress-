@@ -72,4 +72,23 @@ public class LoadingDashState : IState
         }
     }
 
+    public void OnTheGround()
+    {
+    }
+
+    public void OffTheGround()
+    {
+    }
+
+    public void OnTheWall(bool right)
+    {
+    }
+
+    public void OffTheWall()
+    {
+    }
+
+    public void CrashIntoBean()
+    {
+    }
 }

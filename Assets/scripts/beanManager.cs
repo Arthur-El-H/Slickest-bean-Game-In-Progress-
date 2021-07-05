@@ -10,6 +10,8 @@ public class beanManager : MonoBehaviour
     float waitTime = 4f;
     [SerializeField] input_Manager inputManager;
 
+    public GameObject beanToBeDestroyed;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,12 +26,6 @@ public class beanManager : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
             spawnBean();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     float currentY = 6f; //first bean
@@ -55,7 +51,6 @@ public class beanManager : MonoBehaviour
             size = UnityEngine.Random.Range(.3f, 1f);
             newBean = Instantiate(bean, new Vector3(currentX, currentY, 0), Quaternion.identity);
             newBean.transform.localScale = new Vector3(size, size, 1);
-            //newBean.GetComponent<playerSensorBeans>().ipManager = inputManager;
         }
 
         else
@@ -66,5 +61,11 @@ public class beanManager : MonoBehaviour
             newBean.transform.localScale = new Vector3(size, size, 1);
 
         }
+    }
+
+    public void BreakBean()
+    {
+        Debug.Log("breaking bean");
+        Destroy(beanToBeDestroyed);
     }
 }

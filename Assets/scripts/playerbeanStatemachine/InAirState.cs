@@ -69,4 +69,29 @@ public class InAirState : IState
     {
         owner.statemachine.ChangeState(new LoadingDashState(owner));
     }
+
+    public void OnTheWall(bool right)
+    {
+        owner.statemachine.ChangeState(new OnWallState(owner, !right));
+        comboManager.OpenWallJump(.3f);
+    }
+
+    public void OffTheWall()
+    {
+    }
+
+    public void OnTheGround()
+    {
+        owner.statemachine.ChangeState(new OnBeanState(owner));
+        comboManager.OpenBeanJump(.1f);
+    }
+
+    public void OffTheGround()
+    {
+    }
+
+    public void CrashIntoBean()
+    {
+        playerRB.velocity = new Vector2(playerRB.velocity.x, 0);
+    }
 }

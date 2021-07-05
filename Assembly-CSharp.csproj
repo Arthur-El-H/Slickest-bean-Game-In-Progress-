@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\CameraControl.cs" />
     <Compile Include="Assets\ComboManager.cs" />
+    <Compile Include="Assets\Crash_Sensor.cs" />
     <Compile Include="Assets\dashManager.cs" />
     <Compile Include="Assets\jumpManager.cs" />
     <Compile Include="Assets\scripts\Bean.cs" />

@@ -12,14 +12,12 @@ public class input_Manager : MonoBehaviour
     mainManager mainManager;
     [SerializeField] CorrectorOfFallingWithBeans corrector;
 
+
+
     bool jumpIsAble = true; 
     bool dashAble = true;
     bool secondJumpIsAble = true;
-    void activateSecondJump(bool newState)
-    {
-        if(!newState) Debug.Log("I have been called!");
-        secondJumpIsAble = newState; 
-    }
+
     internal bool isDashing;
 
     internal bool isLoadingDash;
@@ -121,6 +119,7 @@ public class input_Manager : MonoBehaviour
     }
     */
 
+    /*
     public IEnumerator reset(string timer, float timeToWait)
     {
         switch (timer)
@@ -158,7 +157,7 @@ public class input_Manager : MonoBehaviour
             case "doubleJumpWindow": doubleJumpWindow = false; break;
         }
     }
-
+    */
     //void dash()
     //{
     //    if (Input.GetKey(KeyCode.D)) { Debug.Log("dash right"); moveManager.dash("right"); }
@@ -195,24 +194,26 @@ public class input_Manager : MonoBehaviour
 
     private void onTheWall(bool right)
     {
-        Debug.Log("On the wall!");
-        control.statemachine.ChangeState(new OnWallState(control, !right));
-        comboManager.OpenWallJump(.3f);
+        control.statemachine.getCurrentState()?.OnTheWall(right);
     }
 
     public void offTheWall()
     {
-        control.statemachine.ChangeState(new InAirState(control));
+        control.statemachine.getCurrentState()?.OffTheWall();
     }
 
     public void GoIntoAir()
     {
-        control.statemachine.ChangeState(new InAirState(control));
+        control.statemachine.getCurrentState()?.OffTheGround();
     }
 
     public void gotToGround()
     {
-        control.statemachine.ChangeState(new OnBeanState(control));
-        comboManager.OpenBeanJump(.1f);
+        control.statemachine.getCurrentState()?.OnTheGround(); 
+    }
+
+    public void CrashedIntoBean()
+    {
+        control.statemachine.getCurrentState()?.CrashIntoBean();
     }
 }

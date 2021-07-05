@@ -10,7 +10,11 @@
     void ABtnPressed();
     void DBtnPressed();
     void WBtnPressed();
-
-    }
+    void OnTheGround();
+    void OffTheGround();
+    void OnTheWall(bool right);
+    void OffTheWall();
+    void CrashIntoBean();
+}
 
 public enum dashDir { up, left, right}

@@ -17,7 +17,6 @@ public class ComboManager : MonoBehaviour
      * bouncing off wall
      * 
      */
-    float doubleJumpDelay = .5f;
 
     public bool timingWindowForBreakingBeanOpen;
     public bool timingWindowForBouncingOfWallOpen;
@@ -25,7 +24,12 @@ public class ComboManager : MonoBehaviour
     public bool timingWindowForDoubleJumpOpen;      // Controlled by InAirState
     public bool timingWindowForBeanJumpOpen;
 
-    public async void OpenDoubleJump(float timeToWait)
+
+    public void OpenBeanBreaking()
+    {
+        StartCoroutine(OpenBreakingBean(1.5f));
+    }
+    public void OpenDoubleJump(float timeToWait)
     {
         StartCoroutine(OpeningDoubleJump(timeToWait));
     }
@@ -41,8 +45,12 @@ public class ComboManager : MonoBehaviour
     public IEnumerator OpenBreakingBean (float timeToWait)
     {
         timingWindowForBreakingBeanOpen = true;
+        Debug.Log("opening BreakingBean window");
+
         yield return new WaitForSeconds(timeToWait);
         timingWindowForBreakingBeanOpen = false;
+        Debug.Log("Closing BreakingBean window");
+
     }
 
     public IEnumerator OpenBouncingOfWall (float timeToWait)

@@ -16,12 +16,6 @@ public class move_Manager : MonoBehaviour
         Debug.Log("You Hit The Wall");
     }
 
-    internal void dazed()
-    {
-        StartCoroutine(ipManager.reset("isDazed", dazeTime));
-    }
-
-
     int dashFrameCounter;
 
     Animator anim;

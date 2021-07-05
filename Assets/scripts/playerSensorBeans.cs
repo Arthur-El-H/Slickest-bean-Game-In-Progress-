@@ -7,6 +7,8 @@ public class playerSensorBeans : MonoBehaviour
     public input_Manager ipManager;
     public mainManager mainManager;
     public game_Manager gameManager;
+    public ComboManager comboManager;
+    public beanManager beanManager;
 
     public bool bean;
     public bool wallR;
@@ -24,14 +26,20 @@ public class playerSensorBeans : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 11) 
+        if (collision.gameObject.layer == 11) //player
         { 
-            if (bean) StartCoroutine(ipManager.openWindow("landingWindow", ipManager.landingWindowTime));
-            if (wallL) { ipManager.rightWall = false; StartCoroutine(ipManager.openWindow("dashWallWindow", ipManager.dashWallWindowTime));  }
-            if (wallR) { ipManager.rightWall = true;  StartCoroutine(ipManager.openWindow("dashWallWindow", ipManager.dashWallWindowTime));  }
+            if (bean) { }
+            if (wallL) { }
+            if (wallR) { }
             if (win) { Debug.Log("win"); mainManager.win(); gameManager.loose(); }
             if (loose) { Debug.Log("loose");mainManager.loose(); gameManager.loose(); }
         }
+
+        if (collision.gameObject.layer == 17) //playerhead
+        {
+            if (bean) { comboManager.OpenBeanBreaking(); beanManager.beanToBeDestroyed = gameObject.transform.parent.gameObject; } 
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)

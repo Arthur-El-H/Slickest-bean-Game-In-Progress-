@@ -69,4 +69,27 @@ public class OnBeanState : IState
     {
         // Dash through dash Manager
     }
+
+    public void OnTheWall(bool right)
+    {
+        owner.statemachine.ChangeState(new OnWallState(owner, !right));
+        comboManager.OpenWallJump(.3f);
+    }
+
+    public void OffTheWall()
+    {
+    }
+
+    public void OnTheGround()
+    {
+    }
+
+    public void OffTheGround()
+    {
+        owner.statemachine.ChangeState(new InAirState(owner));
+    }
+
+    public void CrashIntoBean()
+    {
+    }
 }
