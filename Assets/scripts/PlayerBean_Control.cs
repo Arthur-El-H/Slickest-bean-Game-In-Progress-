@@ -11,6 +11,7 @@ public class PlayerBean_Control : MonoBehaviour
     public Animator animator;
     public Rigidbody2D playerRB;
     public ComboManager comboManager;
+    public ComboCounter comboCounter;
     public beanManager beanManager;
 
     public Statemachine statemachine;

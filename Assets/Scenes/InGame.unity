@@ -153,6 +153,7 @@ MonoBehaviour:
   bean: {fileID: 608570222}
   newBean: {fileID: 0}
   inputManager: {fileID: 971724066}
+  comboCounter: {fileID: 1158010695}
   beanToBeDestroyed: {fileID: 0}
 --- !u!4 &52256187
 Transform:
@@ -548,9 +549,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ipManager: {fileID: 971724066}
   mainManager: {fileID: 0}
-  gameManager: {fileID: 0}
-  comboManager: {fileID: 0}
-  beanManager: {fileID: 0}
+  gameManager: {fileID: 1458099557}
+  comboManager: {fileID: 1158010693}
+  beanManager: {fileID: 52256186}
   bean: 0
   wallR: 1
   wallL: 0
@@ -742,9 +743,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ipManager: {fileID: 971724066}
   mainManager: {fileID: 0}
-  gameManager: {fileID: 0}
-  comboManager: {fileID: 0}
-  beanManager: {fileID: 0}
+  gameManager: {fileID: 1458099557}
+  comboManager: {fileID: 1158010693}
+  beanManager: {fileID: 52256186}
   bean: 0
   wallR: 0
   wallL: 0
@@ -1193,6 +1194,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 122896600}
+  - {fileID: 1269964324}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1276,7 +1278,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ipManager: {fileID: 971724066}
   playerRB: {fileID: 971724063}
-  onWall: 0
 --- !u!114 &971724066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1417,6 +1418,7 @@ MonoBehaviour:
   animator: {fileID: 971724070}
   playerRB: {fileID: 971724063}
   comboManager: {fileID: 1158010693}
+  comboCounter: {fileID: 1158010695}
   beanManager: {fileID: 52256186}
 --- !u!114 &971724072
 MonoBehaviour:
@@ -1457,6 +1459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRB: {fileID: 971724063}
+  comboCounter: {fileID: 1158010695}
 --- !u!114 &971724075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1541,9 +1544,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ipManager: {fileID: 971724066}
   mainManager: {fileID: 0}
-  gameManager: {fileID: 0}
-  comboManager: {fileID: 0}
-  beanManager: {fileID: 0}
+  gameManager: {fileID: 1458099557}
+  comboManager: {fileID: 1158010693}
+  beanManager: {fileID: 52256186}
   bean: 0
   wallR: 0
   wallL: 0
@@ -1560,6 +1563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1158010694}
   - component: {fileID: 1158010693}
+  - component: {fileID: 1158010695}
   m_Layer: 0
   m_Name: ComboManager
   m_TagString: Untagged
@@ -1598,6 +1602,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1158010695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158010692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4bd10c8894938845900aaff76b763d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentComboTxt: {fileID: 1269964322}
 --- !u!1 &1228673922
 GameObject:
   m_ObjectHideFlags: 0
@@ -1664,6 +1681,83 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1269964321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1269964324}
+  - component: {fileID: 1269964323}
+  - component: {fileID: 1269964322}
+  m_Layer: 5
+  m_Name: CurrentComboTxt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1269964322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269964321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.9294118, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 28
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &1269964323
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269964321}
+  m_CullTransparentMesh: 0
+--- !u!224 &1269964324
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269964321}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 965992355}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 865.5, y: 444}
+  m_SizeDelta: {x: 189, y: 173.45667}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1287652508
 GameObject:
   m_ObjectHideFlags: 0
@@ -1998,9 +2092,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ipManager: {fileID: 971724066}
   mainManager: {fileID: 0}
-  gameManager: {fileID: 0}
-  comboManager: {fileID: 0}
-  beanManager: {fileID: 0}
+  gameManager: {fileID: 1458099557}
+  comboManager: {fileID: 1158010693}
+  beanManager: {fileID: 52256186}
   bean: 0
   wallR: 0
   wallL: 1

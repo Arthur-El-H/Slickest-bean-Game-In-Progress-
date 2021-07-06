@@ -65,7 +65,6 @@ public class OnWallState : IState
 
     public void SpaceUp()
     {
-        // Dash through dash Manager
     }
 
     public void OnTheWall(bool right)

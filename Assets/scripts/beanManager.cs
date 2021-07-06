@@ -9,10 +9,10 @@ public class beanManager : MonoBehaviour
     public GameObject newBean;
     float waitTime = 4f;
     [SerializeField] input_Manager inputManager;
+    [SerializeField] ComboCounter comboCounter;
 
     public GameObject beanToBeDestroyed;
 
-    // Start is called before the first frame update
     void Start()
     {
         fillMap();
@@ -59,13 +59,12 @@ public class beanManager : MonoBehaviour
             size = UnityEngine.Random.Range(.3f, 1f);
             newBean = Instantiate(bean, new Vector3(currentX, 100, 0), Quaternion.identity);
             newBean.transform.localScale = new Vector3(size, size, 1);
-
         }
     }
 
     public void BreakBean()
     {
-        Debug.Log("breaking bean");
         Destroy(beanToBeDestroyed);
+        comboCounter.BeanWasDestroyed();
     }
 }

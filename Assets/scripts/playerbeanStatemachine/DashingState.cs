@@ -11,6 +11,7 @@ public class DashingState : IState
     Animator anim;
     Rigidbody2D playerRB;
     ComboManager comboManager;
+    ComboCounter comboCounter;
 
     private Vector2 currentDirValue;
     private static Vector2 dashL = new Vector2(-1f, 1f);
@@ -30,6 +31,7 @@ public class DashingState : IState
         this.dashManager = owner.dashManager;
         this.playerRB = owner.playerRB;
         this.comboManager = owner.comboManager;
+        this.comboCounter = owner.comboCounter;
         this.dir = dir;
     }
 
@@ -58,7 +60,6 @@ public class DashingState : IState
 
     public void Execute()
     {
-        //check for bounceOff in playerBeanControl
         dashManager.Dash(currentDirValue);
         dashFrameCount++;
         if(dashFrameCount >= dashFrames)
@@ -97,7 +98,7 @@ public class DashingState : IState
     public void SpaceUp()
     {
         Debug.Log("Space up is called in dash state");
-        Debug.Log(comboManager.timingWindowForBreakingBeanOpen);
+        Debug.Log(comboManager.timingWindowForBouncingOfWallOpen);
         //get timingbool - get current position: Is a bean broken? Bounced of a wall?
 
         if(comboManager.timingWindowForBreakingBeanOpen)
@@ -109,7 +110,9 @@ public class DashingState : IState
 
         else if (comboManager.timingWindowForBouncingOfWallOpen)
         {
+            dashFrameCount = dashFrameCount - 60;
             ReverseDirection();
+            delayCount = 0;
         }
 
         else
@@ -120,6 +123,7 @@ public class DashingState : IState
 
     private void ReverseDirection()
     {
+        comboCounter.BouncedOffTheWall();
         switch (dir)
         {
             case dashDir.left:
@@ -147,17 +151,12 @@ public class DashingState : IState
     {
     }
 
-    public void OnTheWall(bool right)
-    {
-        owner.statemachine.ChangeState(new DazedState(owner));
-    }
-
     public void OffTheWall()
     {
     }
 
     int delayCount;
-    int delay = 20;
+    int delay = 60;
 
     public void CrashIntoBean()
     {
@@ -167,6 +166,18 @@ public class DashingState : IState
         {
             comboManager.timingWindowForBreakingBeanOpen = false;
             owner.statemachine.ChangeState(new DazedState(owner));
+            delayCount = 0;
+        }
+    }
+    public void OnTheWall(bool right)
+    {
+        delayCount++;
+
+        if (delayCount > delay)
+        {
+            comboManager.timingWindowForBouncingOfWallOpen = false;
+            owner.statemachine.ChangeState(new DazedState(owner));
+            delayCount = 0;
         }
     }
 }

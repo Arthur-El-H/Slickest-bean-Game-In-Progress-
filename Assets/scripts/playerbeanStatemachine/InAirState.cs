@@ -46,7 +46,6 @@ public class InAirState : IState
 
     public void WBtnPressed()
     {
-        // ask TimingManager if timing is right
         if (!doubleJumpAvailable) { return; }
 
         if (comboManager.timingWindowForDoubleJumpOpen)
