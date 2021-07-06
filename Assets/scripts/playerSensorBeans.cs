@@ -31,8 +31,8 @@ public class playerSensorBeans : MonoBehaviour
             if (bean) { }
             if (wallL) { comboManager.OpenBouncingOffWall(); }
             if (wallR) { comboManager.OpenBouncingOffWall(); }
-            if (win) { Debug.Log("win"); mainManager.win(); gameManager.loose(); }
-            if (loose) { Debug.Log("loose");mainManager.loose(); gameManager.loose(); }
+            if (win)   { Debug.Log("win");   gameManager.Win(); }
+            if (loose) { Debug.Log("loose"); gameManager.loose(); }
         }
 
         if (collision.gameObject.layer == 17) //playerhead

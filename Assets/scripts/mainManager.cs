@@ -59,29 +59,4 @@ public class mainManager : MonoBehaviour
         if (!musicPlaying) { audio.Stop(); }
         else { audio.Play(); }
     }
-
-    public void win()
-    {
-        StartCoroutine(winning());
-    }
-
-    IEnumerator winning()
-    {
-        Destroy(GameObject.Find("player_bean"));
-        Camera.main.transform.position = new Vector3(0, 0, -20);
-        Instantiate(winScene, new Vector3(0, 0, 0), Quaternion.identity) ;
-        yield return new WaitForSeconds(4);
-    }
-
-    public void loose()
-    {
-        StartCoroutine(loosing());
-    }
-    IEnumerator loosing()
-    {
-        Destroy(GameObject.Find("player_bean"));
-        Camera.main.transform.position = new Vector3(0, 0, -20);
-        Instantiate(looseScene, new Vector3(0, 0, 0), Quaternion.identity);
-        yield return new WaitForSeconds(4);
-    }
 }
