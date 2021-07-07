@@ -22,6 +22,7 @@ public class DashingState : IState
 
     int dashFrames = 180;
     int dashFrameCount;
+    bool started;
 
     public DashingState(PlayerBean_Control owner, dashDir dir)
     {
@@ -32,6 +33,7 @@ public class DashingState : IState
         this.playerRB = owner.playerRB;
         this.comboManager = owner.comboManager;
         this.comboCounter = owner.comboCounter;
+        this.anim = owner.animator;
         this.dir = dir;
     }
 
@@ -42,32 +44,61 @@ public class DashingState : IState
         playerRB.gravityScale = 0;
         playerRB.velocity = Vector3.zero;
 
+        owner.DashStartCoroutineHelper(this);
+    }
+
+    public IEnumerator Starting()
+    {
+        anim.Play("startDash");
+        for (int i = 0; i < 30; i++)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        SetDirection();
+        started = true;
+    }
+
+    private void SetDirection()
+    {
         switch (dir)
         {
             case dashDir.left:
                 currentDirValue = dashL;
+                anim.Play("dashLeft");
                 break;
 
             case dashDir.right:
                 currentDirValue = dashR;
+                anim.Play("dashRight");
                 break;
 
             case dashDir.up:
                 currentDirValue = dashU;
+                anim.Play("dashUp");
                 break;
         }
     }
 
     public void Execute()
     {
-        dashManager.Dash(currentDirValue);
-        dashFrameCount++;
-        if(dashFrameCount >= dashFrames)
+        if (started)
         {
-            owner.statemachine.ChangeState(new InAirState(owner));
+            dashManager.Dash(currentDirValue);
+            dashFrameCount++;
+            if (dashFrameCount >= dashFrames)
+            {
+                owner.statemachine.ChangeState(new InAirState(owner));
+                if(dashDir.left == dir) { anim.Play("EndDashLeft"); }
+                else { anim.Play("EndDashRight"); }
+                LastDash();
+            }
         }
     }
 
+    private void LastDash()
+    {
+        playerRB.AddForce(new Vector2(0, 100f));
+    }
     public void Exit()
     {
         playerRB.gravityScale = 1f;
@@ -75,20 +106,27 @@ public class DashingState : IState
 
     public void ABtnPressed()
     {
+        if (!started) return;
         dir = dashDir.left;
         currentDirValue = dashL;
+        anim.Play("dashLeft");
     }
 
     public void DBtnPressed()
     {
+        if (!started) return;
+        Debug.Log("Fehler");
         dir = dashDir.right;
         currentDirValue = dashR;
+        anim.Play("dashRight");
     }
 
     public void WBtnPressed()
     {
+        if (!started) return;
         dir = dashDir.up;
         currentDirValue = dashU;
+        anim.Play("dashUp");
     }
 
     public void SpaceHolded()
@@ -99,7 +137,6 @@ public class DashingState : IState
     {
         Debug.Log("Space up is called in dash state");
         Debug.Log(comboManager.timingWindowForBouncingOfWallOpen);
-        //get timingbool - get current position: Is a bean broken? Bounced of a wall?
 
         if(comboManager.timingWindowForBreakingBeanOpen)
         {
@@ -129,15 +166,17 @@ public class DashingState : IState
             case dashDir.left:
                 dir = dashDir.right;
                 currentDirValue = dashR;
+                anim.Play("dashRight");
                 break;
 
             case dashDir.right:
                 dir = dashDir.left;
                 currentDirValue = dashL;
+                anim.Play("dashLeft");
                 break;
 
             case dashDir.up:
-                // could check at which wall the player is and push to the other direction
+                anim.Play("dashUp");
                 break;
         }
     }
@@ -161,12 +200,14 @@ public class DashingState : IState
     public void CrashIntoBean()
     {
         delayCount++;
-
+        Debug.Log("Test2: DelayCount: " + delayCount);
         if(delayCount > delay)
         {
+            Debug.Log("Crashed into bean while dashing");
             comboManager.timingWindowForBreakingBeanOpen = false;
             owner.statemachine.ChangeState(new DazedState(owner));
             delayCount = 0;
+            AnimateCrash( (dir == dashDir.left) );
         }
     }
     public void OnTheWall(bool right)
@@ -178,6 +219,19 @@ public class DashingState : IState
             comboManager.timingWindowForBouncingOfWallOpen = false;
             owner.statemachine.ChangeState(new DazedState(owner));
             delayCount = 0;
+            AnimateCrash( (dir == dashDir.left) );
+        }
+    }
+
+    private void AnimateCrash(bool left)
+    {
+        if(left)
+        {
+            anim.Play("DazedLeft");
+        }
+        else
+        {
+            anim.Play("DazedRight");
         }
     }
 }

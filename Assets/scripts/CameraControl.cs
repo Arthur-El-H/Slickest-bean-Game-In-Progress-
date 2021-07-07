@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour
 {
+    [SerializeField] GameObject ComboScreenAnimator;
+
     Vector2 lastPos;
     Vector2 delta;
 
@@ -15,6 +17,7 @@ public class CameraControl : MonoBehaviour
     {
         delta = (Vector2)transform.position - lastPos;
         Camera.main.transform.position += new Vector3(0, delta.y, 0);
+        ComboScreenAnimator.transform.position += new Vector3(0, delta.y, 0);
         lastPos = (Vector2)transform.position;
     }
 }

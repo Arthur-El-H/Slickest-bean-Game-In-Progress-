@@ -10,6 +10,7 @@ public class ComboCounter : MonoBehaviour
     int comboCount;
     int maxCombo;
     [SerializeField] Text currentComboTxt;
+    [SerializeField] ComboAnimationManager comboAnimManager;
 
     public void DoubleJumpWasTimed() 
     {
@@ -41,6 +42,7 @@ public class ComboCounter : MonoBehaviour
         if (currentCountDown != null) StopCoroutine(currentCountDown);
         currentCountDown = StartCoroutine(actualizeCountDown());
         comboCount++;
+        comboAnimManager.ReactToTimedAction(comboCount);
         currentComboTxt.text = comboCount.ToString();
     }
 

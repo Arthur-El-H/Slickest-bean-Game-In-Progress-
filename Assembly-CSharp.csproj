@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Assets\scripts\Bean.cs" />
     <Compile Include="Assets\scripts\CameraControl.cs" />
+    <Compile Include="Assets\scripts\ComboAnimationManager.cs" />
     <Compile Include="Assets\scripts\ComboCounter.cs" />
     <Compile Include="Assets\scripts\ComboManager.cs" />
     <Compile Include="Assets\scripts\CorrectorOfFallingWithBeans.cs" />

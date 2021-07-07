@@ -23,6 +23,7 @@ public class LoadingDashState : IState
     public void Enter()
     {
         Debug.Log("Entering loading Dash State");
+        anim.Play("loadDash");
     }
 
     public void Execute()

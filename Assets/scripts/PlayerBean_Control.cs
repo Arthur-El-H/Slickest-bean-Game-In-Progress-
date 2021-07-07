@@ -26,4 +26,9 @@ public class PlayerBean_Control : MonoBehaviour
     {
         statemachine.Update();
     }
+
+    internal void DashStartCoroutineHelper(DashingState state)
+    {
+        StartCoroutine(state.Starting());
+    }
 }
