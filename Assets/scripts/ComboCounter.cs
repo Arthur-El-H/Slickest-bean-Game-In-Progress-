@@ -8,7 +8,8 @@ public class ComboCounter : MonoBehaviour
     float countDownTime = 3f;
     Coroutine currentCountDown;
     int comboCount;
-    int maxCombo;
+    public int maxCombo;
+    public int totalComboCounter;
     [SerializeField] Text currentComboTxt;
     [SerializeField] ComboAnimationManager comboAnimManager;
 
@@ -44,6 +45,7 @@ public class ComboCounter : MonoBehaviour
         comboCount++;
         comboAnimManager.ReactToTimedAction(comboCount);
         currentComboTxt.text = comboCount.ToString();
+        totalComboCounter ++;
     }
 
     private IEnumerator actualizeCountDown()

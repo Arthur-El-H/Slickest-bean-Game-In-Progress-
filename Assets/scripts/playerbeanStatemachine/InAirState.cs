@@ -10,6 +10,7 @@ public class InAirState : IState
     dashManager dashManager;
     ComboManager comboManager;
     Rigidbody2D playerRB;
+    Animator anim;
 
     bool doubleJumpAvailable = true;
     public InAirState(PlayerBean_Control owner)
@@ -20,9 +21,11 @@ public class InAirState : IState
         this.dashManager = owner.dashManager;
         this.comboManager = owner.comboManager;
         this.playerRB = owner.playerRB;
+        this.anim = owner.animator;
     }
     public void Enter()
     {
+        anim.Play("idle");
         Debug.Log("Entering InAir State");
     }
 

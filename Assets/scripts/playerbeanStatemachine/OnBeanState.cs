@@ -9,6 +9,7 @@ public class OnBeanState : IState
     jumpManager jumpManager;
     dashManager dashManager;
     ComboManager comboManager;
+    Animator anim;
 
     float fallSpeed = 1f;   //Fallspeed of the non player beans!
 
@@ -19,6 +20,7 @@ public class OnBeanState : IState
         this.jumpManager = owner.jumpManager;
         this.dashManager = owner.dashManager;
         this.comboManager = owner.comboManager;
+        this.anim = owner.animator;
     }
 
     public void Enter()

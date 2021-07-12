@@ -31,4 +31,13 @@ public class PlayerBean_Control : MonoBehaviour
     {
         StartCoroutine(state.Starting());
     }
+
+    internal void DashingStateActivateHardenHelper(DashingState state)
+    {
+        StartCoroutine(state.delayedActivateHarden());
+    }
+    internal void DashingStateHardenHelper(DashingState state)
+    {
+        StartCoroutine(state.Hardening());
+    }
 }

@@ -242,8 +242,8 @@ MonoBehaviour:
   ipManager: {fileID: 971724066}
   mainManager: {fileID: 0}
   gameManager: {fileID: 1458099557}
-  comboManager: {fileID: 0}
-  beanManager: {fileID: 0}
+  comboManager: {fileID: 1158010693}
+  beanManager: {fileID: 52256186}
   bean: 0
   wallR: 0
   wallL: 0
@@ -962,7 +962,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1013,7 +1013,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1204,6 +1204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 971724066}
+  beanManager: {fileID: 52256186}
 --- !u!1 &965992351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1394,6 +1395,7 @@ MonoBehaviour:
   moveManager: {fileID: 971724065}
   control: {fileID: 971724071}
   comboManager: {fileID: 1158010693}
+  beanManager: {fileID: 52256186}
   corrector: {fileID: 971724072}
   currentPositionState: 0
   dashWallWindowTime: 1
@@ -1440,7 +1442,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 1b9ad00efc536004d9e96a06f2643bcb, type: 3}
-  m_Color: {r: 0.9622642, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1720,6 +1722,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4bd10c8894938845900aaff76b763d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxCombo: 0
+  totalComboCounter: 0
   currentComboTxt: {fileID: 1269964322}
   comboAnimManager: {fileID: 1159771159}
 --- !u!1 &1159771158
@@ -2307,6 +2311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainManager: {fileID: 0}
+  comboCounter: {fileID: 1158010695}
   retryBtn: {fileID: 122896599}
 --- !u!4 &1458099558
 Transform:

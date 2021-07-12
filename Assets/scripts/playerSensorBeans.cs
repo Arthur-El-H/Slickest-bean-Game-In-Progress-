@@ -29,15 +29,15 @@ public class playerSensorBeans : MonoBehaviour
         if (collision.gameObject.layer == 11) //player
         { 
             if (bean) { }
-            if (wallL) { comboManager.OpenBouncingOffWall(); }
-            if (wallR) { comboManager.OpenBouncingOffWall(); }
+            if (wallL) { }// comboManager.OpenBouncingOffWall(); }
+            if (wallR) { }// comboManager.OpenBouncingOffWall(); }
             if (win)   { Debug.Log("win");   gameManager.Win(); }
             if (loose) { Debug.Log("loose"); gameManager.loose(); }
         }
 
         if (collision.gameObject.layer == 17) //playerhead
         {
-            if (bean) { comboManager.OpenBeanBreaking(); beanManager.beanToBeDestroyed = gameObject.transform.parent.gameObject; } 
+            if (bean) { } //comboManager.OpenBeanBreaking(); beanManager.beanToBeDestroyed = gameObject.transform.parent.gameObject; } 
         }
 
     }

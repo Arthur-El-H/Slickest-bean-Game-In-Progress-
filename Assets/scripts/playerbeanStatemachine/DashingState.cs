@@ -23,6 +23,8 @@ public class DashingState : IState
     int dashFrames = 180;
     int dashFrameCount;
     bool started;
+    int comboDashFrameCountBoost = 70;
+
 
     public DashingState(PlayerBean_Control owner, dashDir dir)
     {
@@ -115,7 +117,6 @@ public class DashingState : IState
     public void DBtnPressed()
     {
         if (!started) return;
-        Debug.Log("Fehler");
         dir = dashDir.right;
         currentDirValue = dashR;
         anim.Play("dashRight");
@@ -135,26 +136,49 @@ public class DashingState : IState
 
     public void SpaceUp()
     {
-        Debug.Log("Space up is called in dash state");
-        Debug.Log(comboManager.timingWindowForBouncingOfWallOpen);
-
-        if(comboManager.timingWindowForBreakingBeanOpen)
+        if (hardenAvaliable)
         {
-            dashFrameCount = dashFrameCount - 60;
-            owner.beanManager.BreakBean();
-            delayCount = 0;
+            hardenAvaliable = false;
+            owner.DashingStateActivateHardenHelper(this);
+            owner.DashingStateHardenHelper(this);
         }
-
-        else if (comboManager.timingWindowForBouncingOfWallOpen)
-        {
-            dashFrameCount = dashFrameCount - 60;
-            ReverseDirection();
-            delayCount = 0;
-        }
-
         else
         {
             owner.statemachine.ChangeState(new InAirState(owner));
+        }
+    }
+
+    private bool hardened;
+    private bool hardenAvaliable = true;
+    float hardenTime = .5f;
+    float hardenCoolDown = 2f;
+    public IEnumerator delayedActivateHarden()
+    {
+        yield return new WaitForSeconds(hardenCoolDown);
+        hardenAvaliable = true;
+    }
+    public IEnumerator Hardening()
+    {
+        anim.Play("harden");
+        hardened = true;
+        yield return new WaitForSeconds(hardenTime);
+        hardened = false;
+        switch (dir)
+        {
+            case dashDir.left:
+                currentDirValue = dashL;
+                anim.Play("dashLeft");
+                break;
+
+            case dashDir.right:
+                currentDirValue = dashR;
+                anim.Play("dashRight");
+                break;
+
+            case dashDir.up:
+                currentDirValue = dashU;
+                anim.Play("dashUp");
+                break;
         }
     }
 
@@ -194,32 +218,37 @@ public class DashingState : IState
     {
     }
 
-    int delayCount;
-    int delay = 60;
-
     public void CrashIntoBean()
     {
-        delayCount++;
-        Debug.Log("Test2: DelayCount: " + delayCount);
-        if(delayCount > delay)
+        Debug.Log("Crashed while hardened = " + hardened);
+        if (hardened)
         {
-            Debug.Log("Crashed into bean while dashing");
-            comboManager.timingWindowForBreakingBeanOpen = false;
+            owner.beanManager.BreakBean();
+            dashFrameCount -= comboDashFrameCountBoost;
+            hardenAvaliable = true;
+        }
+
+        else
+        {
             owner.statemachine.ChangeState(new DazedState(owner));
-            delayCount = 0;
-            AnimateCrash( (dir == dashDir.left) );
+            AnimateCrash((dir == dashDir.left));
         }
     }
     public void OnTheWall(bool right)
     {
-        delayCount++;
+        Debug.Log("Crashed while hardened = " + hardened);
 
-        if (delayCount > delay)
+        if (hardened)
         {
-            comboManager.timingWindowForBouncingOfWallOpen = false;
+            ReverseDirection();
+            dashFrameCount -= comboDashFrameCountBoost;
+            hardenAvaliable = true;
+        }
+
+        else
+        {
             owner.statemachine.ChangeState(new DazedState(owner));
-            delayCount = 0;
-            AnimateCrash( (dir == dashDir.left) );
+            AnimateCrash((dir == dashDir.left));
         }
     }
 

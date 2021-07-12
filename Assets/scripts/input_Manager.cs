@@ -9,6 +9,7 @@ public class input_Manager : MonoBehaviour
     public move_Manager moveManager;
     public PlayerBean_Control control;
     [SerializeField] ComboManager comboManager;
+    [SerializeField] beanManager beanManager;
     mainManager mainManager;
     [SerializeField] CorrectorOfFallingWithBeans corrector;
 
@@ -62,11 +63,11 @@ public class input_Manager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W)) { control.statemachine.getCurrentState()?.WBtnPressed(); }
-        if (Input.GetKey("space"))       { control.statemachine.getCurrentState()?.SpaceHolded(); }
-        if (Input.GetKeyUp("space"))     { control.statemachine.getCurrentState()?.SpaceUp(); }
-        if (Input.GetKey(KeyCode.A))     { control.statemachine.getCurrentState()?.ABtnPressed(); }
-        if (Input.GetKey(KeyCode.D))     { control.statemachine.getCurrentState()?.DBtnPressed(); }
+        if (Input.GetKeyDown (KeyCode.W))  { control.statemachine.getCurrentState()?.WBtnPressed(); }
+        if (Input.GetKey     ("space"))    { control.statemachine.getCurrentState()?.SpaceHolded(); }
+        if (Input.GetKeyUp   ("space"))    { control.statemachine.getCurrentState()?.SpaceUp(); }
+        if (Input.GetKey     (KeyCode.A))  { control.statemachine.getCurrentState()?.ABtnPressed(); }
+        if (Input.GetKey     (KeyCode.D))  { control.statemachine.getCurrentState()?.DBtnPressed(); }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
